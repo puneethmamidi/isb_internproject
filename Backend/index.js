@@ -28,6 +28,9 @@ db.connect((err)=>{
         console.log("Database Connected")
     }
  })
+
+// Vercel
+app.get("/", (req, res) => res.send("Express on Vercel"));  
 // Verify user    
 const verifyUser = (req, res,next)=>{
     const token = req.cookies.token;
@@ -46,7 +49,7 @@ const verifyUser = (req, res,next)=>{
     }
 }
 
-app.get('/',verifyUser,(req, res)=>{
+app.get('/verify',verifyUser,(req, res)=>{
     return res.json({Status:"Success",username:req.username,id:req.id});
 })
 
