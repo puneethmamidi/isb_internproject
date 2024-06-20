@@ -334,8 +334,7 @@ const manager = new NlpManager(({ languages: ["en"]}));
   manager.addAnswer('en','explainSkateboard',`Skateboarding, a dynamic and exhilarating sport, has captured the hearts of enthusiasts worldwide with its blend of athleticism, creativity, and freedom. With its origins rooted in surfing and street culture, skateboarding has evolved into a diverse and vibrant subculture, encompassing various disciplines such as street skating, vert skating, and freestyle skating. Riders navigate urban landscapes with skill and finesse, performing tricks and maneuvers that push the boundaries of what's possible on four wheels and a wooden deck. Beyond its physical demands, skateboarding fosters camaraderie and self-expression, providing a platform for individuals to showcase their unique style and personality. As a symbol of counterculture and rebellion, skateboarding continues to inspire generations of riders to defy conventions and carve their own paths, both on and off the board. In essence, skateboarding represents the boundless pursuit of freedom, creativity, and self-discovery through the simple act of riding.`)
   // Train model
   
-  manager.train().then(async ()=>{
-    manager.save();
+
     
     // route and handler
     app.post('/bot', async (req, res) => {
@@ -343,7 +342,7 @@ const manager = new NlpManager(({ languages: ["en"]}));
       let response = await manager.process('en', message);
       res.json(response.answer);
     });
-  })
+
   const transporter = nodemailer.createTransport({
     host: 'smtp-mail.outlook.com',
     port: 587,
