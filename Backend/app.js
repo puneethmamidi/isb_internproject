@@ -1,6 +1,5 @@
 const express = require('express');
 const cors =  require('cors');
-
 const nodemailer = require('nodemailer');
 const bodyParser = require('body-parser');
 const  jwt = require('jsonwebtoken');
@@ -337,6 +336,7 @@ const manager = new NlpManager(({ languages: ["en"]}));
   
   manager.train().then(async ()=>{
     manager.save();
+    
     // route and handler
     app.post('/bot', async (req, res) => {
       const { message } = req.body;
