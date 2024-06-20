@@ -22,8 +22,7 @@
     "mysql": "^2.18.1",
     "node-nlp": "^4.27.0",
     "nodemailer": "^6.9.14",
-    "nodemon": "^3.1.3",
-    "@node-nlp/persist-mem": "^1.0.0",
-    "@node-nlp/persist-fs": "^1.0.0"
+    "nodemon": "^3.1.3"
+    
   }
 }
