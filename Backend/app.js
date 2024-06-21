@@ -23,13 +23,13 @@ app.use(cors(corsConfig));
 app.use(cookieParser());
 
 // Checking Database Connection
-db.query('SELECT 1', (err, results) => {
-    if (err) {
-      console.log(err)
-    } else {
-      console.log("Database Connected")
+db.connect((err)=>{
+    if(err){
+        console.log(err)
+    }else{
+        console.log("Database Connected")
     }
-  })
+ })
 
  
 // Verify user    
@@ -335,8 +335,28 @@ const manager = new NlpManager(({ languages: ["en"]}));
   manager.addAnswer('en','explainBicycleHelmet',`The bicycle helmet stands as a vital piece of safety equipment, protecting cyclists from head injuries and potentially saving lives. With its sturdy construction and impact-absorbing materials, the helmet provides a crucial layer of defense against the forces generated during falls or collisions. By shielding the head from trauma, it reduces the risk of severe injuries such as concussions or skull fractures, promoting safer cycling experiences for riders of all ages. Moreover, bicycle helmets serve as reminders of the importance of responsible behavior and risk mitigation while engaging in physical activities. As symbols of safety consciousness and personal protection, they encourage cyclists to prioritize their well-being and set an example for others on the road. In essence, bicycle helmets embody the intersection of technology, safety, and personal responsibility, ensuring that riders can enjoy the freedom and exhilaration of cycling with peace of mind and confidence.`)
   manager.addAnswer('en','explainSkateboard',`Skateboarding, a dynamic and exhilarating sport, has captured the hearts of enthusiasts worldwide with its blend of athleticism, creativity, and freedom. With its origins rooted in surfing and street culture, skateboarding has evolved into a diverse and vibrant subculture, encompassing various disciplines such as street skating, vert skating, and freestyle skating. Riders navigate urban landscapes with skill and finesse, performing tricks and maneuvers that push the boundaries of what's possible on four wheels and a wooden deck. Beyond its physical demands, skateboarding fosters camaraderie and self-expression, providing a platform for individuals to showcase their unique style and personality. As a symbol of counterculture and rebellion, skateboarding continues to inspire generations of riders to defy conventions and carve their own paths, both on and off the board. In essence, skateboarding represents the boundless pursuit of freedom, creativity, and self-discovery through the simple act of riding.`)
   // Train model
+  // Save the original console.log function
+const originalConsoleLog = console.log;
 
-    
+// Override console.log with an empty function to suppress output
+console.log = function() {};
+
+// Perform training
+manager.train()
+    .then(() => {
+        // Restore original console.log function after training completes
+        console.log = originalConsoleLog;
+        console.log('Training completed.');
+
+        // Save the trained model
+        return manager.save();
+    })
+    .then(() => {
+        console.log('Model saved successfully.');
+    })
+    .catch((error) => {
+        console.error('Error during training or saving:', error);
+    });
     // route and handler
     app.post('/bot', async (req, res) => {
       const { message } = req.body;
