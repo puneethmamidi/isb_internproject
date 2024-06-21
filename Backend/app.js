@@ -23,13 +23,13 @@ app.use(cors(corsConfig));
 app.use(cookieParser());
 
 // Checking Database Connection
-db.connect((err)=>{
-    if(err){
-        console.log(err)
-    }else{
-        console.log("Database Connected")
+db.query('SELECT 1', (err, results) => {
+    if (err) {
+      console.log(err)
+    } else {
+      console.log("Database Connected")
     }
- })
+  })
 
  
 // Verify user    
