@@ -4,9 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon app.js",
-    "build": "echo 'Nothing to build'",
-    "start": "node app.js"
+    "start": "nodemon index.js"
+    
   },
   "keywords": [],
   "author": "",

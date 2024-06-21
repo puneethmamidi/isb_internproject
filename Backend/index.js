@@ -24,13 +24,13 @@ app.use(cors(corsConfig));
 app.use(cookieParser());
 
 // Checking Database Connection
-db.connect((err)=>{
-    if(err){
-        console.log(err)
-    }else{
-        console.log("Database Connected")
+db.connect((err) => {
+    if (err) {
+      console.error('Error connecting to database:', err);
+      return;
     }
- })
+    console.log('Database Connected');
+  });
 
 // Vercel
 app.get("/", (req, res) => res.send("Express on Vercel")); 
