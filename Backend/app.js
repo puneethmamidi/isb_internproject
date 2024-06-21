@@ -14,7 +14,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(express.json());
 const corsConfig = {
-    origin: ["http://localhost:3000"],
+    origin: "*",
     methods: ["POST", "GET","PUT","DELETE"],
     credentials: true
 }
