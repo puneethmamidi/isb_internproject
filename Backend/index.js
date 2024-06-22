@@ -26,10 +26,10 @@ app.use(cookieParser());
 // Checking Database Connection
 db.connect((err) => {
     if (err) {
-      console.error('Error connecting to TiDB Cloud:', err.stack);
+      console.error(err);
       return;
     }
-    console.log('Connected to TiDB Cloud as id', connection.threadId);
+    console.log('Database Connected');
 }); 
 
 // Vercel
@@ -97,36 +97,36 @@ app.post('/signup',(req, res)=>{
         })
     })
 
-    app.get('/object/:id', (req, res) => {
-      const id = parseInt(req.params.id); // Ensure id is parsed as an integer
-      if (isNaN(id)) {
-        res.status(400).json({ error: 'Invalid ID parameter' });
-        return;
-      }
+app.get('/object/:id', (req, res) => {
+  const id = parseInt(req.params.id); // Ensure id is parsed as an integer
+  if (isNaN(id)) {
+    res.status(400).json({ error: 'Invalid ID parameter' });
+    return;
+  }
+
+  const sql = "SELECT * FROM words WHERE id = ?";
+  
+  db.query(sql, [id], (err, rows) => {
+    if (err) {
+      console.error("Database query error:", err);
+      res.status(500).json({ error: 'Internal Server Error' });
+      return;
+    }
     
-      const sql = "SELECT * FROM words WHERE id = ?";
-      
-      db.query(sql, [id], (err, rows) => {
-        if (err) {
-          console.error("Database query error:", err);
-          res.status(500).json({ error: 'Internal Server Error' });
-          return;
-        }
-        
-        if (!rows.length) {
-          res.status(404).json({ error: 'Object not found' });
-          return;
-        }
-        
-        const result = {
-          id: rows[0].id,
-          word: rows[0].word
-        };
+    if (!rows.length) {
+      res.status(404).json({ error: 'Object not found' });
+      return;
+    }
     
-        res.json(result);
-      });
-    });
-    
+    const result = {
+      id: rows[0].id,
+      word: rows[0].word
+    };
+
+    res.json(result);
+  });
+});
+
 // Practice-Section
 app.post('/practiceSession-score', (req, res) => {
   const { values, word_id, word, player_id, player_username, user_ans } = req.body;
