@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const cors =  require('cors');
 const nodemailer = require('nodemailer');
@@ -7,6 +8,7 @@ const {score_data} = require('./score')
 const {db} = require('./database')
 const { NlpManager } = require("node-nlp");
 const bcrypt = require('bcrypt');
+const dbName = process.env.DB_NAME;
 const cookieParser = require('cookie-parser');
 const salt = 10;
 const app = express();
@@ -103,7 +105,7 @@ app.get('/object/:id', (req, res) => {
     res.status(400).json({ error: 'Invalid ID parameter' });
     return;
   }
-  const useDbSql = "USE your_database_name";
+  const useDbSql = `USE ${dbName}`;
   const sql = "SELECT * FROM words WHERE id = ?";
   
   db.query(useDbSql,sql [id], (err, rows) => {
