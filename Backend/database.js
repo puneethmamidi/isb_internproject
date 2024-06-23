@@ -6,7 +6,7 @@ const dbPassword = process.env.DB_PASSWORD;
 const dbName = process.env.DB_NAME;
 
 
-const db = mysql.createPool({
+const db = mysql.createConnection({
     host: dbHost,
     user: dbUser,
     password: dbPassword,

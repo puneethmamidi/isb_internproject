@@ -24,14 +24,13 @@ app.use(cors(corsConfig));
 app.use(cookieParser());
 
 // Checking Database Connection
-db.getConnection((err, connection) => {
-  if (err) {
-    console.error('Error connecting to MySQL:', err);
-    throw err;
-  }
-  console.log('Connected to MySQL database');
-  connection.release(); // Release the connection back to the pool
-});
+db.connect((err) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    console.log('Database Connected');
+}); 
 
 // Vercel
 app.get("/", (req, res) => res.send("Express on Vercel")); 
