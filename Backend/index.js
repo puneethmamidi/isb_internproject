@@ -105,7 +105,7 @@ app.get('/object/:id', (req, res) => {
     res.status(400).json({ error: 'Invalid ID parameter' });
     return;
   }
-  const useDbSql = `USE ${dbName}`;
+  const useDbSql = "USE dbName";
   const sql = "SELECT * FROM words WHERE id = ?";
   
   db.query(useDbSql,sql [id], (err, rows) => {
