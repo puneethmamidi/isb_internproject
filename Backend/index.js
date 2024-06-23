@@ -1,4 +1,4 @@
-require('dotenv').config();
+
 const express = require('express');
 const cors =  require('cors');
 const nodemailer = require('nodemailer');
@@ -8,7 +8,7 @@ const {score_data} = require('./score')
 const {db} = require('./database')
 const { NlpManager } = require("node-nlp");
 const bcrypt = require('bcrypt');
-const dbName = process.env.DB_NAME;
+
 const cookieParser = require('cookie-parser');
 const salt = 10;
 const app = express();
